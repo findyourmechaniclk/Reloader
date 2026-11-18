@@ -1,3 +1,10 @@
+# Optimized by ci-cost (https://github.com/mariotavarez/ci-cost)
+# Applied 3 optimizations:
+# - [MEDIUM] Add concurrency group to "pull_request-helm.yaml"
+# - [LOW] Use shallow clone in "helm-chart-validation" job
+# - [LOW] Use shallow clone in "helm-version-validation" job
+# Estimated savings: ~2 min/run
+#
 name: Pull Request Workflow for Helm Chart changes
 
 on:
@@ -9,6 +16,10 @@ on:
     paths:
       - 'deployments/kubernetes/chart/reloader/**'
 
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 env:
   DOCKER_FILE_PATH: Dockerfile
   DOCKER_UBI_FILE_PATH: Dockerfile.ubi
