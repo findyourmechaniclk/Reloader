@@ -1,6 +1,7 @@
 name: Pull Request Workflow for Helm Chart changes
 
 on:
+  workflow_dispatch:
   pull_request:
     branches:
       - master
